@@ -1,0 +1,23 @@
+.itemlist_searchbar_container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 71%;
+    width: 100%;
+    justify-content: center;
+}
+
+.itemlist_searchbar_container > p {
+    font-size: 12pt;
+}
+
+.card_container {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 100px;
+    margin: 50px 0;
+}
