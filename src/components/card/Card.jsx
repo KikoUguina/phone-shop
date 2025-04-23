@@ -10,7 +10,6 @@ const Card = ({ id, imgUrl, brand, model, price }) => {
                     {brand} {model}
                 </Link>
             </h2>
-            <p>Precio: {price}€</p>
         </div>
     );
 };
