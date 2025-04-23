@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { CartContext } from '../../context/CartContext';
+import { addToCart } from '../../services/api'; // 👈 lo importas
 import styles from './ProductActions.module.css';
 
 const ProductActions = ({ id, colors = [], storages = [] }) => {
@@ -10,20 +10,17 @@ const ProductActions = ({ id, colors = [], storages = [] }) => {
 
     const handleAddToCart = async () => {
         try {
-            const response = await axios.post('https://itx-frontend-test.onrender.com/api/cart', {
+            const { count } = await addToCart({
                 id,
                 colorCode: selectedColor,
                 storageCode: selectedStorage
             });
-    
-            const { count } = response.data;
-    
-            updateCartCount((prevCount) => prevCount + count);
+
+            updateCartCount((prev) => prev + count);
         } catch (error) {
             console.error('❌ Error al añadir al carrito:', error);
         }
     };
-    
 
     return (
         <div className={styles.actions_container}>

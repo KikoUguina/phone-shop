@@ -11,3 +11,13 @@ export const getProductById = async (id) => {
     const response = await axios.get(`https://itx-frontend-test.onrender.com/api/product/${id}`);
     return response.data;
 };
+
+export const addToCart = async ({ id, colorCode, storageCode }) => {
+    const response = await axios.post('https://itx-frontend-test.onrender.com/api/cart', {
+        id,
+        colorCode,
+        storageCode
+    });
+
+    return response.data;
+};

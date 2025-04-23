@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const an_hour = 60 * 60 * 1000;
+const ONE_HOUR = 60 * 60 * 1000;
 
 export const useCache = (key, fetchFunction) => {
     const [data, setData] = useState(null);
@@ -8,13 +8,13 @@ export const useCache = (key, fetchFunction) => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const cache = localStorage.getItem(key);
+        const cached = localStorage.getItem(key);
 
-        if (cache) {
-            const { data: cachedData, timestamp } = JSON.parse(cache);
-            const isExpired = Date.now() - timestamp > an_hour;
+        if (cached) {
+            const { data: cachedData, timestamp } = JSON.parse(cached);
+            const isStale = Date.now() - timestamp > ONE_HOUR;
 
-            if (!isExpired) {
+            if (!isStale) {
                 setData(cachedData);
                 setLoading(false);
                 return;
@@ -22,15 +22,14 @@ export const useCache = (key, fetchFunction) => {
         }
 
         fetchFunction()
-            .then((res) => {
-                setData(res);
-                localStorage.setItem(
-                    key,
-                    JSON.stringify({
-                        data: res,
-                        timestamp: Date.now(),
-                    })
-                );
+            .then((freshData) => {
+                setData(freshData);
+                const payload = {
+                    data: freshData,
+                    timestamp: Date.now()
+                };
+
+                localStorage.setItem(key, JSON.stringify(payload));
             })
             .catch((err) => {
                 setError(err);
@@ -38,6 +37,7 @@ export const useCache = (key, fetchFunction) => {
             .finally(() => {
                 setLoading(false);
             });
+
     }, [key, fetchFunction]);
 
     return { data, loading, error };
