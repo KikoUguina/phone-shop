@@ -17,7 +17,16 @@ export const CartProvider = ({ children }) => {
     }, [cartCount]);
 
     const updateCartCount = (newCount) => {
-        setCartCount(newCount);
+        if (typeof newCount === 'function') {
+            setCartCount((prev) => {
+                const updated = newCount(prev);
+                localStorage.setItem('cartCount', updated.toString());
+                return updated;
+            });
+        } else {
+            setCartCount(newCount);
+            localStorage.setItem('cartCount', newCount.toString());
+        }
     };
 
     return (

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getProductById } from '../../services/api';
+import ProductActions from '../../components/productActions/ProductActions';
 import styles from './productDetail.module.css'
 
 const ProductDetail = () => {
@@ -49,7 +50,13 @@ const ProductDetail = () => {
                     </ul>
                 </div>
             </div>
+            <ProductActions
+                id={product.id}
+                colors={product.options?.colors || []}
+                storages={product.options?.storages || []}
+            />
         </div>
+        
     );
 };
 
