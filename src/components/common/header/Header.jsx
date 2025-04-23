@@ -10,13 +10,13 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <div>
-                <Link to="/" className={styles.logo}>Phone-Shop</Link>
+                <Link className={styles.logo}>Phone Shop</Link>
             </div>
             <div className={styles.breadcrumbs}>
                 {breadcrumbs}
             </div>
             <div className={styles.cart}>
-                🛒 Carrito: {0}
+                🛒: {0}
             </div>
         </header>
     );
