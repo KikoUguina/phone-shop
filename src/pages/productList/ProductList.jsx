@@ -1,37 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { getProducts } from '../../services/api';
 import Card from '../../components/card/Card.jsx';
+import { useCache } from '../../hooks/useCache';
 import SearchBar from '../../components/searchBar/SearchBar';
 import styles from './productlist.module.css';
 
 const ProductList = () => {
-    const [products, setProducts] = useState([]);
     const [search, setSearch] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: products = [], loading, error } = useCache('product_list', getProducts);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const data = await getProducts();
-                setProducts(data);
-            } catch (err) {
-                setError(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProducts();
-    }, []);
-
-    const filteredProducts = products.filter((product) => {
+    const filteredProducts = (products || []).filter((product) => {
         const term = search.toLowerCase();
         return (
             product.brand.toLowerCase().includes(term) ||
             product.model.toLowerCase().includes(term)
         );
     });
+    
 
     if (loading) return <p>Cargando productos...</p>;
     if (error) return <p>Error al cargar productos.</p>;
@@ -48,7 +33,7 @@ const ProductList = () => {
                     <Card
                         key={product.id}
                         id={product.id}
-                        imgUrl={product.imgUrl || product.img}
+                        imgUrl={product.imgUrl}
                         brand={product.brand}
                         model={product.model}
                         price={product.price}
