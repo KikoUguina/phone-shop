@@ -1,8 +1,11 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useContext, useMemo } from 'react';
 import styles from './Header.module.css';
+import { CartContext } from '../../../context/CartContext';
 
 const Header = () => {
+    const { cartCount } = useContext(CartContext);
+
     const location = useLocation();
 
     const breadcrumbs = useMemo(() => {
@@ -32,7 +35,7 @@ const Header = () => {
                 {breadcrumbs}
             </div>
             <div className={styles.cart}>
-                🛒 Carrito: {0}
+                🛒 Carrito: {cartCount}
             </div>
         </header>
     );
