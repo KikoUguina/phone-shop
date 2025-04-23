@@ -1,7 +1,7 @@
 import styles from './Card.module.css';
 import { Link } from 'react-router-dom';
 
-const Card = ({ id, imgUrl, brand, model, price }) => {
+const Card = ({ id, imgUrl, brand, model }) => {
     return (
         <div className={styles.cards}>
             <img src={imgUrl} alt={`${brand} ${model}`} />
