@@ -22,9 +22,9 @@ const ProductList = () => {
     if (error) return <p>Error al cargar productos.</p>;
 
     return (
-        <div>
+        <div className={styles.searchbar_cardcontainer}>
             <div className={styles.itemlist_searchbar_container}>
-                <p>Item List</p>
+                <p className={styles.itemlist}>Item List</p>
                 <SearchBar value={search} onChange={setSearch} />
             </div>
 
