@@ -55,11 +55,11 @@ const ProductActions = ({ id, colors = [], storages = [] }) => {
                         ))}
                     </select>
                 </label>
-            </div>
 
-            <button className={styles.add_button} onClick={handleAddToCart}>
-                Añadir al carrito
-            </button>
+                <button className={styles.add_button} onClick={handleAddToCart}>
+                    Añadir al carrito
+                </button>
+            </div>
         </div>
     );
 };
